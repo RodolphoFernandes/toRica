@@ -134,15 +134,22 @@ export default function Home({token}: Props) {
               marginTop={!matches ? 4 : 0}
             >
               {
-                numbers?.map((n: string) => (
+                numbers?.map((n: string, index: number) => (
                   <Box
                   display='flex'
                   justifyContent='space-between'
                   alignItems='center'
                   width='100%'
+                  key={index}
                   >
-                    {n.split(' ').map(text => (
-                      <Typography variant='body1' fontWeight='bold'>{text}</Typography>
+                    {n.split(' ').map((text: string, index: number) => (
+                      <Typography 
+                        variant='body1' 
+                        fontWeight='bold'
+                        key={`${index}_0` }
+                      >
+                        {text}
+                      </Typography>
                     ))}
                   </Box>                
                 ))
