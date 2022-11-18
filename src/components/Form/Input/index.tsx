@@ -3,8 +3,6 @@ import { Control, Controller, FieldValues } from "react-hook-form";
 import TextField, { BaseTextFieldProps } from "@mui/material/TextField";
 import Skeleton from "@mui/material/Skeleton";
 import { CircularProgress, InputAdornment } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
-import { formatMask } from "../../../util/mask";
 
 export interface Props extends BaseTextFieldProps {
   name?: string;
@@ -56,7 +54,7 @@ export const Input = ({
             error={!!error}
             onChange={(event) => {
               if(!!mask){
-                onChange(formatMask(event.target.value, mask))
+                onChange(event.target.value)
               }
               else{
                 onChange(event)
@@ -64,7 +62,7 @@ export const Input = ({
               
               !!getValue && getValue(event)
             }}
-            value={!!mask ? formatMask(value, mask) : value}
+            value={value}
             fullWidth
             label={IsRequired ? label + " *" : label}
             variant="outlined"

@@ -6,14 +6,11 @@ import { Zoom, GlobalStyles, responsiveFontSizes } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { SnackbarProvider } from 'notistack';
-import { QueryClientProvider } from 'react-query';
+import { useRouter } from 'next/router';
 
 import themeOrigin from '../styles/theme';
-import { queryClient } from '../services/queryClient';
+
 import createEmotionCache from '../createEmotionCache';
-// import { Footer } from '../components/Footer';
-// import { SearchProvider } from '../context/SearchContext';
-import { useRouter } from 'next/router';
 import { Backdrop } from '../components/Backdrop';
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -58,22 +55,17 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
+      
         <SnackbarProvider
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           TransitionComponent={Zoom}
           preventDuplicate
         >
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          {/* <SearchProvider> */}
-            <Backdrop open={openBackdrop}/>
-            <Component {...pageProps} />
-            
-          {/* </SearchProvider> */}
-          {/* <ReactQueryDevtools /> */}
-          </SnackbarProvider>
-        </QueryClientProvider>
+          <CssBaseline />         
+          <Backdrop open={openBackdrop}/>
+          <Component {...pageProps} />
+          </SnackbarProvider>      
       </ThemeProvider>
     </CacheProvider>
   );

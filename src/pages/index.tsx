@@ -1,32 +1,19 @@
-import Image from 'next/image';
+import { useState } from 'react';
 import { 
   Box, 
   Stack, 
   Typography, 
   Button,  
   Container,
-  Grid,
-  Alert
 } from "@mui/material";
-
-import { apiSSR } from '../services/apiSSR';
-import { useEffect, useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { setCookie } from 'nookies';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import { Footer } from '../components/Footer';
-import { useRouter } from 'next/router';
-import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
-import { Input } from '../components/Form/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Footer } from '../components/Footer';
+import { Input } from '../components/Form/Input';
+import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
 
 
-interface Props {
-  token: string;
-}
-
-export default function Home({token}: Props) {
+export default function Home() {
   const [numbers, setNumbers] = useState<string[]>([]);
 
   const matches = useMediaQuery('(min-width:600px)');
@@ -169,22 +156,8 @@ export default function Home({token}: Props) {
 
 export async function getStaticProps() {
 
-  const response = await apiSSR(undefined).get('/Authentication/api/v1/OAuth/Authenticate'
-    , {
-      headers: {
-        'client_id': process.env.CLIENT_ID,
-        'username': process.env.USERNAME_AUTH,
-        'password': process.env.PASSWORD_AUTH
-      }
-    }
-  );
-
-  const { 'accessToken': token } = response.data.data.token;
-
   return {
-    props: {
-      token
-    }, 
-    revalidate: 60 * 60
+    props: {}, 
+    revalidate: ((60 * 60) * 24) * 30
   }
 }
